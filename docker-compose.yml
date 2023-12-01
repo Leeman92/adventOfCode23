@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  php:
+    tty: true
+    build:
+      dockerfile: devops/Dockerfile
+    labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.whoami.rule=Host(`adventOfCode.localhost`)"
+        - "traefik.http.routers.whoami.entrypoints=web"
+    volumes:
+        - ./src:/var/www/html
+        - ./devops/configs/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+        - ./devops/configs/php/php.ini:/usr/local/etc/php/php.ini
+    networks:
+        - default
+        - traefik
+
+networks:
+    traefik:
+        name: "traefik"
+        external: true
