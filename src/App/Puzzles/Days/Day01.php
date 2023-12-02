@@ -6,7 +6,7 @@ namespace App\Puzzles\Days;
 
 use App\Contracts\Day;
 
-class Day01 extends Day
+readonly class Day01 extends Day
 {
     public function partOne(): string
     {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Contracts;
 
-abstract class Day
+readonly abstract class Day
 {
     public function __construct(protected array $puzzleInput, protected array $testInput, protected string $day, protected string $part)
     {

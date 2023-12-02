@@ -5,6 +5,8 @@ services:
     tty: true
     build:
       dockerfile: devops/Dockerfile
+    ports:
+      - ":80"
     labels:
         - "traefik.enable=true"
         - "traefik.http.routers.whoami.rule=Host(`adventOfCode.localhost`)"
