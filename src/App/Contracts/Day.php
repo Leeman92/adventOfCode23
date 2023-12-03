@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Contracts;
 
+use RuntimeException;
+
 readonly abstract class Day
 {
     public function __construct(protected array $puzzleInput, protected array $testInput, protected string $day, protected string $part)
@@ -13,31 +15,24 @@ readonly abstract class Day
     public function solve(): void
     {
         if ($this->part === '01') {
-            echo $this->partOne();
+            echo $this->solvePartOne($this->puzzleInput);
         } elseif ($this->part === '02') {
-            echo $this->partTwo();
+            echo $this->solvePartTwo($this->puzzleInput);
         } else {
-            throw new \RuntimeException('Invalid part');
+            throw new RuntimeException('Invalid part');
         }
     }
 
     public function solveTest(): void
     {
         if ($this->part === '01') {
-            echo $this->testOne();
+            echo $this->solvePartOne($this->testInput);
         } elseif ($this->part === '02') {
-            echo $this->testTwo();
+            echo $this->solvePartTwo($this->testInput);
         } else {
-            throw new \RuntimeException('Invalid part');
+            throw new RuntimeException('Invalid part');
         }
     }
-
-    abstract public function partOne(): string;
-
-    abstract public function partTwo(): string;
-
-    abstract public function testOne(): string;
-    abstract public function testTwo(): string;
 
     public function getDay(): string
     {
@@ -48,4 +43,8 @@ readonly abstract class Day
     {
         return $this->part;
     }
+
+    abstract function solvePartOne(array $input): string;
+
+    abstract function solvePartTwo(array $input): string;
 }

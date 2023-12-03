@@ -8,31 +8,7 @@ use App\Contracts\Day;
 
 readonly class Day01 extends Day
 {
-    public function partOne(): string
-    {
-        $filteredInput = $this->filterPartOneInput($this->puzzleInput);
-        return (string) array_sum($filteredInput);
-    }
-
-    public function partTwo(): string
-    {
-        $filteredInput = $this->filterPartTwoInput($this->puzzleInput);
-        return (string) array_sum($filteredInput);
-    }
-
-    public function testOne(): string
-    {
-        $filteredInput = $this->filterPartOneInput($this->testInput);
-        return (string) array_sum($filteredInput);
-    }
-
-    public function testTwo(): string
-    {
-        $filteredInput = $this->filterPartTwoInput($this->testInput);
-        return (string) array_sum($filteredInput);
-    }
-
-    protected function filterPartOneInput(array $input): array
+    public function solvePartOne(array $input): string
     {
         $filteredInput[] = '';
         foreach ($input as $key => $line) {
@@ -63,10 +39,10 @@ readonly class Day01 extends Day
             $filteredInput[$key] = reset($splitValue) . end($splitValue);
         }
 
-        return $filteredInput;
+        return (string) array_sum($filteredInput);
     }
 
-    protected function filterPartTwoInput(array $input): array
+    public function solvePartTwo(array $input): string
     {
         $filteredInput[] = '';
 
@@ -96,6 +72,6 @@ readonly class Day01 extends Day
             $filteredInput[$key] = $line;
         }
 
-        return $this->filterPartOneInput($filteredInput);
+        return $this->solvePartOne($filteredInput);
     }
 }

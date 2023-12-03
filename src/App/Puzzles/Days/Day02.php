@@ -9,38 +9,9 @@ use App\Entities\Game;
 
 readonly class Day02 extends Day
 {
-
-    public function partOne(): string
+    public function solvePartOne(array $input): string
     {
-        return $this->solvePartOne($this->puzzleInput, [12, 13, 14]);
-    }
-
-    public function partTwo(): string
-    {
-        return $this->solvePartTwo($this->puzzleInput, [12, 13, 14]);
-    }
-
-    public function testOne(): string
-    {
-        $solution = $this->solvePartOne($this->testInput, [12, 13, 14]);
-        assert($solution === '8', sprintf('Expected %s to equal %s', $solution, "8"));
-        return $solution;
-    }
-
-    public function testTwo(): string
-    {
-        $solution = $this->solvePartTwo($this->testInput, [12, 13, 14]);
-        assert($solution === '2286', sprintf('Expected %s to equal %s', $solution, "2286"));
-        return $solution;
-    }
-
-    /**
-     * @param array $input
-     * @param array $limits - array of limits in order red, green, blue
-     * @return string
-     */
-    protected function solvePartOne(array $input, array $limits): string
-    {
+        $limits = [12, 13, 14];
         $games = [];
         foreach ($input as $game) {
             $games[] = $this->parseGame($game, $limits);
@@ -57,8 +28,9 @@ readonly class Day02 extends Day
         return (string) $result;
     }
 
-    protected function solvePartTwo(array $input, array $limits): string
+    public function solvePartTwo(array $input): string
     {
+        $limits = [12, 13, 14];
         $games = [];
         foreach ($input as $game) {
             $games[] = $this->parseGame($game, $limits);
