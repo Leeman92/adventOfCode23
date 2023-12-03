@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
 class EngineSchematic
 {
-
     protected array $mappedSchematic = [];
     protected array $symbolCoordinates = [];
     protected array $alreadyChecked = [];
+
     public function __construct(array $schema)
     {
         $this->parseSchematic($schema);
@@ -21,15 +23,13 @@ class EngineSchematic
                 if ($symbol === '.') {
                     continue;
                 }
-                if (is_numeric((int) $symbol) && ((int) $symbol) == $symbol) {
+                if (preg_match('/[0-9]/i', $symbol)) {
                     $this->mappedSchematic[$line][$column] = $symbol;
                 } else {
                     $this->symbolCoordinates[$line][$column] = $symbol;
                 }
             }
         }
-
-//        dd($this->mappedSchematic, $this->symbolCoordinates);
     }
 
     public function getNeighbouringNumbers(): array
@@ -40,16 +40,18 @@ class EngineSchematic
                 $neighbouringNumbers[] = $this->getNeighbouringNumber($line, $column);
             }
         }
+
         return $neighbouringNumbers;
     }
 
-    protected function getNeighbouringNumber(int|string $line, int|string $column, bool $separate = false): int|array
+    protected function getNeighbouringNumber(int|string $line, int|string $column, bool $separate = false): array|int
     {
+
         $spread = [];
         $sum = 0;
         // Check top-left
         if ($this->hasNumber($line - 1, $column - 1)) {
-            $number =  $this->getNumber($line-1, $column-1);
+            $number = $this->getNumber($line - 1, $column - 1);
             if ($separate) {
                 $spread[] = $number;
             } else {
@@ -58,7 +60,7 @@ class EngineSchematic
         }
         // check top
         if ($this->hasNumber($line - 1, $column)) {
-            $number = $this->getNumber($line-1, $column);
+            $number = $this->getNumber($line - 1, $column);
             if ($separate) {
                 $spread[] = $number;
             } else {
@@ -66,8 +68,8 @@ class EngineSchematic
             }
         }
         // check top-right
-        if ($this->hasNumber($line - 1, $column+1)) {
-            $number = $this->getNumber($line-1, $column+1);
+        if ($this->hasNumber($line - 1, $column + 1)) {
+            $number = $this->getNumber($line - 1, $column + 1);
             if ($separate) {
                 $spread[] = $number;
             } else {
@@ -75,8 +77,8 @@ class EngineSchematic
             }
         }
         // check right
-        if ($this->hasNumber($line, $column+1)) {
-            $number = $this->getNumber($line, $column+1);
+        if ($this->hasNumber($line, $column + 1)) {
+            $number = $this->getNumber($line, $column + 1);
             if ($separate) {
                 $spread[] = $number;
             } else {
@@ -84,8 +86,8 @@ class EngineSchematic
             }
         }
         // check bottom-right
-        if ($this->hasNumber($line + 1, $column+1)) {
-            $number = $this->getNumber($line+1, $column+1);
+        if ($this->hasNumber($line + 1, $column + 1)) {
+            $number = $this->getNumber($line + 1, $column + 1);
             if ($separate) {
                 $spread[] = $number;
             } else {
@@ -94,7 +96,7 @@ class EngineSchematic
         }
         // check bottom
         if ($this->hasNumber($line + 1, $column)) {
-            $number = $this->getNumber($line+1, $column);
+            $number = $this->getNumber($line + 1, $column);
             if ($separate) {
                 $spread[] = $number;
             } else {
@@ -102,8 +104,8 @@ class EngineSchematic
             }
         }
         // check bottom-left
-        if ($this->hasNumber($line + 1, $column-1)) {
-            $number = $this->getNumber($line+1, $column-1);
+        if ($this->hasNumber($line + 1, $column - 1)) {
+            $number = $this->getNumber($line + 1, $column - 1);
             if ($separate) {
                 $spread[] = $number;
             } else {
@@ -111,8 +113,8 @@ class EngineSchematic
             }
         }
         // check left
-        if ($this->hasNumber($line, $column-1)) {
-            $number = $this->getNumber($line, $column-1);
+        if ($this->hasNumber($line, $column - 1)) {
+            $number = $this->getNumber($line, $column - 1);
             if ($separate) {
                 $spread[] = $number;
             } else {
@@ -134,12 +136,12 @@ class EngineSchematic
         $needleLeft = $row;
         $needleRight = $row;
         while ($this->hasNumber($line, $needleLeft - 1)) {
-            $needleLeft--;
+            --$needleLeft;
             $number[$needleLeft] = $this->mappedSchematic[$line][$needleLeft];
         }
 
         while ($this->hasNumber($line, $needleRight + 1)) {
-            $needleRight++;
+            ++$needleRight;
             $number[$needleRight] = $this->mappedSchematic[$line][$needleRight];
         }
 
@@ -147,18 +149,13 @@ class EngineSchematic
 
         ksort($number);
         $result = implode('', $number);
+
         return (int) $result;
     }
 
-    /**
-     * @param int $line
-     * @param int $row
-     * @return bool
-     */
     protected function hasNumber(int $line, int $row): bool
     {
-        if (isset($this->alreadyChecked[$line][$row]))
-        {
+        if (isset($this->alreadyChecked[$line][$row])) {
             // This is to prevent checking the same number twice
             return false;
         }
@@ -177,7 +174,7 @@ class EngineSchematic
         $gears = [];
         foreach ($this->symbolCoordinates as $line => $row) {
             foreach ($row as $column => $symbol) {
-                $gears[$line . '|'. $column] = $this->getNeighbouringNumber($line, $column, true);
+                $gears[$line.'|'.$column] = $this->getNeighbouringNumber($line, $column, true);
             }
         }
 
@@ -197,5 +194,4 @@ class EngineSchematic
 
         return $gearRatio;
     }
-
 }

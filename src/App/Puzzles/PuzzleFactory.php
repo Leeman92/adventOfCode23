@@ -21,8 +21,8 @@ class PuzzleFactory
         $puzzleInputFile = __DIR__.'/../../resources/puzzles/'.$day.'-'.$part.'.txt';
         $puzzleInputTestFile = __DIR__.'/../../resources/puzzles/tests/'.$day.'-'.$part.'.txt';
 
-        $puzzleContent = NULL;
-        $testContent = NULL;
+        $puzzleContent = null;
+        $testContent = null;
         if (is_file($puzzleInputFile)) {
             $puzzleContent = file_get_contents($puzzleInputFile);
             $puzzleContent = explode("\r\n", $puzzleContent);
@@ -33,10 +33,9 @@ class PuzzleFactory
             $testContent = explode("\r\n", $testContent);
         }
 
-        if ($puzzleContent === NULL && $testContent === NULL) {
+        if ($puzzleContent === null && $testContent === null) {
             throw new PuzzleNotFoundException("Puzzle Part {$part} not found for day {$day}");
         }
-
 
         return new $potentialClassName($puzzleContent, $testContent, $day, $part);
     }

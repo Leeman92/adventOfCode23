@@ -25,6 +25,7 @@ readonly class Day02 extends Day
             }
             $result += $game->getId();
         }
+
         return (string) $result;
     }
 
@@ -41,13 +42,15 @@ readonly class Day02 extends Day
         foreach ($games as $game) {
             $result += $game->getPower();
         }
+
         return (string) $result;
     }
 
     /**
-     * The structure of the string is Game {id} and then a mixture of colors and amounts
+     * The structure of the string is Game {id} and then a mixture of colors and amounts.
+     *
      * @param mixed $game
-     * @param array $limits
+     *
      * @return ?Game
      */
     protected function parseGame(string $game, array $limits): ?Game
@@ -58,7 +61,7 @@ readonly class Day02 extends Day
         $game = explode(': ', $game);
         $game = [
             'id' => $game[0],
-            'colors' => explode('; ', $game[1])
+            'colors' => explode('; ', $game[1]),
         ];
         $gameEntity = new Game();
         $gameEntity->setId((int) $game['id']);
@@ -74,6 +77,7 @@ readonly class Day02 extends Day
             }
             $gameEntity->reset();
         }
+
         return $gameEntity;
     }
 }

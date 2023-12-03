@@ -31,12 +31,13 @@ readonly class Day01 extends Day
             }
 
             if (strlen($value) === 1) {
-                $filteredInput[$key] = $value . $value;
+                $filteredInput[$key] = $value.$value;
+
                 continue;
             }
 
             $splitValue = str_split($value);
-            $filteredInput[$key] = reset($splitValue) . end($splitValue);
+            $filteredInput[$key] = reset($splitValue).end($splitValue);
         }
 
         return (string) array_sum($filteredInput);
@@ -52,16 +53,16 @@ readonly class Day01 extends Day
          * eight no longer matches. So I replace it with first and last letter aswell
          */
         $numericValues = [
-            'one' => "o1e",
-            'two' => "t2o",
-            'three' => "t3e",
-            'four' => "f4r",
-            'five' => "f5e",
-            'six' => "s6x",
-            'seven' => "s7n",
-            'eight' => "e8t",
-            'nine' => "n9e",
-            'zero' => "z0o",
+            'one' => 'o1e',
+            'two' => 't2o',
+            'three' => 't3e',
+            'four' => 'f4r',
+            'five' => 'f5e',
+            'six' => 's6x',
+            'seven' => 's7n',
+            'eight' => 'e8t',
+            'nine' => 'n9e',
+            'zero' => 'z0o',
         ];
 
         foreach ($input as $key => $line) {

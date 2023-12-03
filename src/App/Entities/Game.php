@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
 class Game
@@ -17,9 +19,9 @@ class Game
 
     public function add(string $color, int $amount): void
     {
-        $this->{$color . 'Cubes'} = $amount;
-        if ($this->{$color.'Cubes'} > $this->{'max' . ucfirst($color) . 'Cubes'}) {
-            $this->{'max' . ucfirst($color) . 'Cubes'} = $amount;
+        $this->{$color.'Cubes'} = $amount;
+        if ($this->{$color.'Cubes'} > $this->{'max'.ucfirst($color).'Cubes'}) {
+            $this->{'max'.ucfirst($color).'Cubes'} = $amount;
         }
     }
 
