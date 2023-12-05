@@ -21,3 +21,6 @@ ___
 - [x] Day 4
   - [x] Part 1
   - [x] Part 2
+- [x] Day 5
+  - [x] Part 1
+  - [ ] Part 2 -- No Idea for the right solution as of yet
