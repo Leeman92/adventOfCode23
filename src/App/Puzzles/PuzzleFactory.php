@@ -18,8 +18,8 @@ class PuzzleFactory
             throw new PuzzleNotFoundException("Puzzle not found for day {$day}");
         }
 
-        $puzzleInputFile = __DIR__.'/../../resources/puzzles/'.$day.'-'.$part.'.txt';
-        $puzzleInputTestFile = __DIR__.'/../../resources/puzzles/tests/'.$day.'-'.$part.'.txt';
+        $puzzleInputFile = __DIR__.'/../../resources/puzzles/'.$day.'.txt';
+        $puzzleInputTestFile = __DIR__.'/../../resources/puzzles/tests/'.$day.'.txt';
 
         $puzzleContent = null;
         $testContent = null;
