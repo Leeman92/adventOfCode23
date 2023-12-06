@@ -24,3 +24,6 @@ ___
 - [x] Day 5
   - [x] Part 1
   - [ ] Part 2 -- No Idea for the right solution as of yet
+- [x] Day 6
+  - [x] Part 1
+  - [x] Part 2
