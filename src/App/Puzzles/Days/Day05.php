@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Puzzles\Days;
 
 use App\Contracts\Day;
@@ -7,8 +9,8 @@ use App\Entities\Almanac;
 
 readonly class Day05 extends Day
 {
-
-    #[\Override] public function solvePartOne(array $input): string
+    #[\Override]
+    public function solvePartOne(array $input): string
     {
         $almanac = new Almanac($input);
 
@@ -24,9 +26,10 @@ readonly class Day05 extends Day
         return (string) $lowestLocation;
     }
 
-    #[\Override] public function solvePartTwo(array $input): string
+    #[\Override]
+    public function solvePartTwo(array $input): string
     {
         // I don't have a clue as of yet
-        return "0";
+        return '0';
     }
 }

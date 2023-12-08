@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
 class Map
 {
     protected array $destination;
+
     public function __construct()
     {
         $this->destination = [];
@@ -13,7 +16,7 @@ class Map
     public function addDefinition(string $definition): void
     {
         $definitionArray = explode(' ', $definition);
-        $definitionArray = array_map(fn($value) => (int) $value, $definitionArray);
+        $definitionArray = array_map(fn ($value) => (int) $value, $definitionArray);
         if (count($definitionArray) !== 3) {
             throw new \Exception('Invalid definition');
         }

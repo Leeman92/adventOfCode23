@@ -10,7 +10,7 @@ RUN a2enmod rewrite && \
     adduser --uid 1000 ape --gid 1000
 
 RUN apt-get update && apt-get install -y \
-    curl zip unzip vim \
+    curl zip unzip vim libgmp-dev -y && docker-php-ext-install gmp \
     && apt-get clean all
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer

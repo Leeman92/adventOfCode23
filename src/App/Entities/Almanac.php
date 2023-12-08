@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
 use JetBrains\PhpStorm\NoReturn;
@@ -26,33 +28,38 @@ class Almanac
 
     }
 
-    #[NoReturn] protected function parseLine(string $value): void
+    #[NoReturn]
+    protected function parseLine(string $value): void
     {
         if ($value === '') {
             $this->currentMap = '';
+
             return;
         }
 
         if (str_contains($value, 'seeds')) {
             $this->parseSeeds($value);
+
             return;
         }
         if (str_contains($value, ' map:')) {
             $map = str_replace(' map:', '', $value);
             $map = explode('-', $map);
             $this->currentMap = end($map);
+
             return;
         }
 
         $this->parseMap($value);
     }
 
-    #[NoReturn] protected function parseSeeds(string $seedLine): void
+    #[NoReturn]
+    protected function parseSeeds(string $seedLine): void
     {
         $seedPattern = '/^seeds:\s+/';
         $seedLine = preg_replace($seedPattern, '', $seedLine);
         $seedLine = explode(' ', $seedLine);
-        $seedLine = array_map(fn($seed) => (int) $seed, $seedLine);
+        $seedLine = array_map(fn ($seed) => (int) $seed, $seedLine);
         $this->initialSeeds = $seedLine;
     }
 

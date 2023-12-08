@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
 class Race
 {
-
     public int $waysToSolve = 0;
 
     public array $timePerRace;
@@ -31,7 +32,7 @@ class Race
         $multipleSpaces = '/\s{2,}/';
         $timeSheet = preg_replace($multipleSpaces, ' ', $timeSheet);
         $timeSheet = explode(' ', $timeSheet);
-        $timeSheet = array_map(fn($value) => (int) $value, $timeSheet);
+        $timeSheet = array_map(fn ($value) => (int) $value, $timeSheet);
 
         $this->timePerRace = $timeSheet;
     }
@@ -43,7 +44,7 @@ class Race
         $multipleSpaces = '/\s{2,}/';
         $recordSheet = preg_replace($multipleSpaces, ' ', $recordSheet);
         $recordSheet = explode(' ', $recordSheet);
-        $recordSheet = array_map(fn($value) => (int) $value, $recordSheet);
+        $recordSheet = array_map(fn ($value) => (int) $value, $recordSheet);
         $this->recordPerRace = $recordSheet;
     }
 
@@ -70,16 +71,16 @@ class Race
     protected function runLap(mixed $time, mixed $recordToBeat): int
     {
         $lapWins = 0;
-        for($i = 1; $i <= floor($time/2); $i++) {
+        for ($i = 1; $i <= floor($time / 2); ++$i) {
             $factorA = $i;
             $factorB = $time - $i;
             $lapTime = $factorA * $factorB;
             if ($lapTime <= $recordToBeat) {
                 continue;
             }
-            $lapWins++;
+            ++$lapWins;
             if ($factorA !== $factorB) {
-                $lapWins++;
+                ++$lapWins;
             }
         }
 

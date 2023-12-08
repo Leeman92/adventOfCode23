@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
 class ScratchCard
@@ -19,6 +21,7 @@ class ScratchCard
         if ($this->amountOfWinningNumbers === 0) {
             return 0;
         }
+
         return 2 ** ($this->amountOfWinningNumbers - 1);
     }
 
@@ -30,7 +33,8 @@ class ScratchCard
                     continue;
                 }
 
-                $this->amountOfWinningNumbers++;
+                ++$this->amountOfWinningNumbers;
+
                 break;
             }
         }
@@ -57,5 +61,4 @@ class ScratchCard
     {
         return $this->amountOfWinningNumbers;
     }
-
 }

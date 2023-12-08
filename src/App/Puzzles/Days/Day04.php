@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Puzzles\Days;
 
 use App\Contracts\Day;
@@ -7,8 +9,8 @@ use App\Entities\ScratchCard;
 
 readonly class Day04 extends Day
 {
-
-    #[\Override] public function solvePartOne(array $input): string
+    #[\Override]
+    public function solvePartOne(array $input): string
     {
         $scratchCardValues = [];
         foreach ($input as $card) {
@@ -21,7 +23,8 @@ readonly class Day04 extends Day
         return (string) array_sum($scratchCardValues);
     }
 
-    #[\Override] public function solvePartTwo(array $input): string
+    #[\Override]
+    public function solvePartTwo(array $input): string
     {
         $scratchCards = [];
         foreach ($input as $key => $card) {
@@ -41,19 +44,19 @@ readonly class Day04 extends Day
                 $totalCards[$key] = 0;
             }
 
-            $totalCards[$key]++;
+            ++$totalCards[$key];
 
             if ($scratchCard->getWinningAmount() === 0) {
                 continue;
             }
 
-            for($i = 0; $i < $scratchCard->getWinningAmount(); $i++) {
+            for ($i = 0; $i < $scratchCard->getWinningAmount(); ++$i) {
                 $newKey = $key + $i + 1;
                 if (!array_key_exists($newKey, $totalCards)) {
                     $totalCards[$newKey] = 0;
                 }
 
-                $totalCards[$newKey]+= $totalCards[$key];
+                $totalCards[$newKey] += $totalCards[$key];
             }
         }
 
