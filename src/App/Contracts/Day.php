@@ -22,9 +22,9 @@ abstract readonly class Day
     public function solveTest(): void
     {
         if ($this->part === '01') {
-            echo $this->solvePartOne($this->testInput);
+            echo $this->solvePartOne($this->testInput, true);
         } elseif ($this->part === '02') {
-            echo $this->solvePartTwo($this->testInput);
+            echo $this->solvePartTwo($this->testInput, true);
         } else {
             throw new \RuntimeException('Invalid part');
         }
@@ -40,7 +40,7 @@ abstract readonly class Day
         return $this->part;
     }
 
-    abstract public function solvePartOne(array $input): string;
+    abstract public function solvePartOne(array $input, bool $test = false): string;
 
-    abstract public function solvePartTwo(array $input): string;
+    abstract public function solvePartTwo(array $input, bool $test = false): string;
 }

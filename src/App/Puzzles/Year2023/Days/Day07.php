@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Puzzles\Days;
+namespace App\Puzzles\Year2023\Days;
 
 use App\Contracts\Day;
 use App\Entities\CamelCard\CamelCard;

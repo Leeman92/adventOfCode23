@@ -11,8 +11,8 @@ readonly class PuzzleSolver
 {
     public function __construct() {}
 
-    public function loadPuzzle(string $day, string $part): Day
+    public function loadPuzzle(string $year, string $day, string $part): Day
     {
-        return PuzzleFactory::createPuzzle($day, $part);
+        return PuzzleFactory::createPuzzle($year, $day, $part);
     }
 }
